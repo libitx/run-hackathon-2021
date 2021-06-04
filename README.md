@@ -2,7 +2,7 @@
 
 This repository is the submission for the Run Hackathon 2021 from team **Shfty**.
 
-![Shfty](https://github.com/libitx/run-hackathon-2021/raw/master/media/shifty.png)
+![Shfty](https://github.com/libitx/run-hackathon-2021/raw/master/media/shfty.png)
 
 **Team:**
 
