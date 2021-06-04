@@ -51,4 +51,14 @@ class Envelope {
 
 Envelope.deps = { CBOR }
 
+Envelope.presets = {
+  main: {
+    location: '69a222fd82ca857a1892419ebc89ebac5e8acf88818659cf30982b3707540d70_o2',
+    origin: '69a222fd82ca857a1892419ebc89ebac5e8acf88818659cf30982b3707540d70_o2',
+    nonce: 1,
+    owner: '1G6uiPUxTidmqDpzj9WQbt75vFDCeeSCJg',
+    satoshis: 0
+  }
+}
+
 export default Envelope
