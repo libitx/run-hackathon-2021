@@ -2,3 +2,44 @@
   <i class="fas fa-wallet mr2"></i>
   Wallet
 </h1>
+
+<%= if @live_action == :mint do %>
+  <%= live_component(@socket, ShftyWeb.Components.Minter) %>
+<% else %>
+  <div pxh-hook="Wallet"
+    x-data="App.Wallet()"
+    x-init="init()">
+
+    <div class="mv4 pa3 pa4-ns bg-black-10 br3">
+      <h3 class="mt0 mb3 f4 fw7 lh-title">
+        <i class="fas fa-wrench mr2"></i>
+        Mint a token
+      </h3>
+      <p class="mv3 f6 lh-copy" x-show="!pending && !tokens.length">
+        Step this way and create your very first <strong class="fw7">Shfty Nft</strong> token.
+      </p>
+
+      <%= live_redirect "Create Shfty Nft",
+          to: Routes.wallet_path(@socket, :mint),
+          class: "dib ph3 pv2 link f5 fw7 lh-copy white bg-animate bg-blue hover-bg-hot-pink pointer bn br2" %>
+    </div>
+
+    <p x-text="ownerAddress"></p>
+
+    <div class="ma0 pa0 grid-wrap" x-show="tokens.length">
+      <template x-for="(jig, index) in tokens" :key="index">
+        <article class="bg-black-10 ba b--black-50 br3 overflow-hidden">
+          <header class="pa3 bg-black-30 br--top">
+            <h5 class="ma0 f6 fw7 lh-title white" x-text="jig.constructor.metadata.name"></h5>
+            <div class="f6 lh-title white-80" x-text="jig.constructor.metadata.description"></div>
+          </header>
+          <div class="pa3 h4">
+
+          </div>
+          <p ></p>
+          <p ></p>
+        </article>
+      </template>
+    </ul>
+  </div>
+<% end %>

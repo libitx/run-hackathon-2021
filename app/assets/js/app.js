@@ -21,6 +21,8 @@ import {LiveSocket} from "phoenix_live_view"
 import "alpinejs"
 
 import SignIn from './components/sign-in'
+import Wallet from './components/wallet'
+import Minter from './components/minter'
 
 window.App = {}
 const hooks = {}
@@ -33,6 +35,8 @@ function component(namespace, comp) {
 }
 
 component('SignIn', SignIn)
+component('Wallet', Wallet)
+component('Minter', Minter)
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
 let liveSocket = new LiveSocket("/live", Socket, {

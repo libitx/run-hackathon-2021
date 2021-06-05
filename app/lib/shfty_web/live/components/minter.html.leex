@@ -1,0 +1,90 @@
+<div class="mv4 pa3 pa4-ns bg-black-10 br3"
+  x-data="App.Minter()"
+  x-init="init()">
+  <div class="flex items-center justify-between mb3">
+    <h3 class="ma0 f4 fw7 lh-title">
+      <i class="fas fa-wrench mr2"></i>
+      Mint a token
+    </h3>
+    <%= live_redirect to: Routes.wallet_path(@socket, :index), class: "link f3 dark-red hover-hot-pink" do %>
+      <i class="far fa-times-circle"></i>
+    <% end %>
+  </div>
+
+  <p class="mv3 f6 lh-copy">
+    To mint a token, type your secret into the box below
+    <strong class="fw7">or try dragging a file onto the box.</strong>
+    <em>(Max 1 MB)</em>.
+  </p>
+
+  <form class="db"
+    @submit.prevent="submit">
+    <div class="mb3 pb2">
+      <label class="mb3 db f6 fw7 lh-title black-50">
+        <i class="fas fa-lock mr1"></i>
+        Token payload (will be encrypted)
+      </label>
+      <div class="relative"
+        @dragover.prevent="isDragging = true"
+        @dragleave.prevent="isDragging = false"
+        @drop.prevent="drop($event.dataTransfer.files[0])">
+        <textarea class="input-reset w-100 pa2 code f5 fw7 lh-title bg-white ba b--silver br2"
+          type="text"
+          name="payload"
+          rows="12"
+          x-model="textPayload"></textarea>
+
+        <div class="absolute top-0 bottom-0 left-0 right-0 bg-moon-gray ba bw1 b--black-50 b--dashed br2"
+          :class="{'b--hot-pink': isDragging}"
+          x-show="isDragging || file">
+          <div class="flex flex-column items-center justify-center h-100">
+            <template x-if="isDragging">
+              <i class="fas fa-file-upload fa-4x hot-silver"></i>
+            </template>
+
+            <template x-if="!isDragging && file">
+              <div class="flex items-center w-100 ph5">
+                <div><i class="far fa-file fa-4x hot-silver"></i></div>
+                <div class="flex-auto pl3">
+                  <h5 class="ma0 f5 lh-copy fw7" x-text="file.name"></h5>
+                  <div class="flex items-center justify-between f6 lh-copy mid-gray">
+                    <span x-text="file.type"></span>
+                    <span class="f7 gray" x-text="fileSize(file.size)"></span>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt3 pt3 bt b--black-20">
+      <h4 class="mt0 mb3 f6 fw7 lh-title black-50">
+        <i class="fas fa-lock-open mr1"></i>
+        Metadata (NOT encrypted)
+      </h4>
+
+      <div class="mb3 pb2">
+        <label class="mb1 db f6 lh-title mid-gray">Token name</label>
+        <input class="input-reset w-100 ph3 pv2 code f5 fw7 lh-title bg-white ba b--silver br2"
+          type="text"
+          name="name"
+          x-model="meta.name" />
+      </div>
+      <div class="mb3 pb2">
+        <label class="mb1 db f6 lh-title mid-gray">Description</label>
+        <input class="input-reset w-100 ph3 pv2 code f5 fw7 lh-title bg-white ba b--silver br2"
+          type="text"
+          name="description"
+          x-model="meta.description" />
+      </div>
+    </div>
+
+    <button class="button-reset dib ph3 pv2 f5 fw7 lh-copy white bg-animate bg-green hover-bg-hot-pink pointer bn br2">
+      Mint it!
+    </button>
+  </form>
+
+  <div x-ref="paypresto"></div>
+</div>

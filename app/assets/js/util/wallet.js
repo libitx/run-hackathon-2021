@@ -1,5 +1,5 @@
-import { Address, Bip32, Bsm, KeyPair } from 'bsv'
-import { Envelope } from 'univrse/dist/univrse.esm.js'
+import { Address, Bip32, Bsm, KeyPair, Script } from 'bsv'
+import { Envelope, util } from 'univrse/dist/univrse.esm.js'
 import { sha256, pbkdf2 } from './crypto'
 
 const STORE_KEY = '_shfty_env'
@@ -11,6 +11,7 @@ class Wallet {
     this.master = Bip32.fromSeed(seed)
     this.identity = this.derive('m/0')
     this.owner = this.derive('m/0/0')
+    this.purse = this.derive('m/0/1')
   }
 
   /**
@@ -31,8 +32,21 @@ class Wallet {
     return new this(username, seed)
   }
 
+  get identityAddress() {
+    return Address.fromPubKey(this.identity.pubKey).toString()
+  }
+
+  get identityKey() {
+    return util.fromBsvPrivKey(this.identity.privKey)
+  }
+
   get ownerAddress() {
     return Address.fromPubKey(this.owner.pubKey).toString()
+  }
+
+  get ownerScript() {
+    const hashBuf = Address.fromPubKey(this.owner.pubKey).hashBuf
+    return Script.fromPubKeyHash(hashBuf)
   }
 
   derive(path) {

@@ -36,6 +36,7 @@ defmodule ShftyWeb.Router do
     pipe_through [:browser, :ensure_user]
 
     live "/wallet", WalletLive, :index, session: {Auth, :get_current_user, []}
+    live "/wallet/mint", WalletLive, :mint, session: {Auth, :get_current_user, []}
   end
 
   scope "/", ShftyWeb do
