@@ -17,12 +17,12 @@ class LimitedShftyNft extends ShftyNft {
    * @param {U|Uint8Array} env Universe envelope
    * @returns {Jig} 
    */
-  init(n, env) {
+  init(n, env, metadata) {
     if (caller !== this.constructor) {
       throw `Must create using ${ this.constructor.name }.mint()`
     }
     this.num = n
-    super.init(env)
+    super.init(env, metadata)
   }
 
   /**
@@ -32,13 +32,13 @@ class LimitedShftyNft extends ShftyNft {
    * @param {U|Uint8Array} env Universe envelope
    * @returns {Jig} 
    */
-  static mint(env) {
+  static mint(env, metadata) {
     if (this.total > 0 && this.total <= this.supply) {
       throw new Error(`${this.name} supply exceeded`)
     }
 
     this.supply++
-    return new this(this.supply, env)
+    return new this(this.supply, env, metadata)
   }
 }
 
@@ -46,15 +46,15 @@ LimitedShftyNft.total = 0
 LimitedShftyNft.supply = 0
 
 LimitedShftyNft.metadata = {
-  name: 'Limited Shfty Nfts',
-  description: 'Tokenise secrets',
+  name: 'Limited Shfty Nft',
+  description: 'Tokenised secrets',
   emoji: '🦹🏽‍♂️'
 }
 
 LimitedShftyNft.presets = {
   main: {
-    location: 'dfccfd70db69b1894de7d6c2a45867cc0bcc27e83d13a4d7b06f79ebe60e37dc_o2',
-    origin: 'dfccfd70db69b1894de7d6c2a45867cc0bcc27e83d13a4d7b06f79ebe60e37dc_o2',
+    location: '7976807fa3f75dfc3c63cbc3d6a416b9e8935652bbb369708ecab3c4b0c27754_o2',
+    origin: '7976807fa3f75dfc3c63cbc3d6a416b9e8935652bbb369708ecab3c4b0c27754_o2',
     nonce: 1,
     owner: '1G6uiPUxTidmqDpzj9WQbt75vFDCeeSCJg',
     satoshis: 0

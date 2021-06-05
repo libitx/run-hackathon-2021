@@ -14,8 +14,11 @@ class ShftyNft extends Jig {
    * @param {U|Uint8Array} env Universe envelope
    * @returns {Jig} 
    */
-  init(env) {
+  init(env, metadata) {
     this._setEnv(env)
+    if (metadata) {
+      this.metadata = metadata
+    }
   }
 
   /**
@@ -49,15 +52,15 @@ class ShftyNft extends Jig {
 ShftyNft.deps = { Envelope, U }
 
 ShftyNft.metadata = {
-  name: 'Shfty Nfts',
-  description: 'Tokenise secrets',
+  name: 'Shfty Nft',
+  description: 'Tokenised secrets',
   emoji: '🦹🏽‍♂️'
 }
 
 ShftyNft.presets = {
   main: {
-    location: 'dfccfd70db69b1894de7d6c2a45867cc0bcc27e83d13a4d7b06f79ebe60e37dc_o1',
-    origin: 'dfccfd70db69b1894de7d6c2a45867cc0bcc27e83d13a4d7b06f79ebe60e37dc_o1',
+    location: '7976807fa3f75dfc3c63cbc3d6a416b9e8935652bbb369708ecab3c4b0c27754_o1',
+    origin: '7976807fa3f75dfc3c63cbc3d6a416b9e8935652bbb369708ecab3c4b0c27754_o1',
     nonce: 1,
     owner: '1G6uiPUxTidmqDpzj9WQbt75vFDCeeSCJg',
     satoshis: 0

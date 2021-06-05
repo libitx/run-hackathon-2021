@@ -36,6 +36,11 @@ describe('ShftyNft', () => {
     assert.deepEqual(token.env.raw, envBuf)
   })
 
+  it('creates a token with metadata', async () => {
+    const token = new ShftyNftCode(envBuf, { foo: 'bar' })
+    assert.equal(token.metadata.foo, 'bar')
+  })
+
   it('sends to another owner', async () => {
     const token = new ShftyNftCode(envBuf)
     await token.sync()
@@ -75,6 +80,11 @@ describe('LimitedShftyNft when total is 0', () => {
     assert.equal(token.env.header.proto, 'runtest')
     assert.equal(token.env.payload, 'This is a test!')
     assert.deepEqual(token.env.raw, envBuf)
+  })
+
+  it('mints a token with metadata', async () => {
+    const token = LimitedShftyNftCode.mint(envBuf, { foo: 'bar' })
+    assert.equal(token.metadata.foo, 'bar')
   })
 
   it('sends to another owner', async () => {
