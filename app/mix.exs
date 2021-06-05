@@ -45,7 +45,11 @@ defmodule Shfty.MixProject do
       {:telemetry_metrics, "~> 0.4"},
       {:telemetry_poller, "~> 0.4"},
       {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"}
+      {:plug_cowboy, "~> 2.0"},
+
+      {:bsv, "~> 0.4"},
+      {:libsecp256k1, "~> 0.1"},
+      {:univrse, "~> 0.1"}
     ]
   end
 

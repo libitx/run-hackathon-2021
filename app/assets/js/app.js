@@ -1,3 +1,5 @@
+import "regenerator-runtime/runtime.js"
+
 // We need to import the CSS so that webpack will load it.
 // The MiniCssExtractPlugin is used to separate it out into
 // its own CSS file.
@@ -16,9 +18,32 @@ import "phoenix_html"
 import {Socket} from "phoenix"
 import topbar from "topbar"
 import {LiveSocket} from "phoenix_live_view"
+import "alpinejs"
+
+import SignIn from './components/sign-in'
+
+window.App = {}
+const hooks = {}
+
+function component(namespace, comp) {
+  if (typeof comp.component === 'function')
+    window.App[namespace] = comp.component;
+  if (typeof comp.hook === 'object')
+    hooks[namespace] = comp.hook;
+}
+
+component('SignIn', SignIn)
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
-let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}})
+let liveSocket = new LiveSocket("/live", Socket, {
+  params: {_csrf_token: csrfToken},
+  dom: {
+    onBeforeElUpdated(from, to){
+      if (from.__x) window.Alpine.clone(from.__x, to);
+    }
+  },
+  hooks
+})
 
 // Show progress bar on live navigation and form submits
 topbar.config({barColors: {0: "#29d"}, shadowColor: "rgba(0, 0, 0, .3)"})
@@ -33,4 +58,3 @@ liveSocket.connect()
 // >> liveSocket.enableLatencySim(1000)  // enabled for duration of browser session
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket
-

@@ -1,0 +1,54 @@
+<div class="mv4 pa3 pa4-ns bg-black-10 br3"
+  x-data="App.SignIn()">
+  <h3 class="mt0 mb3 f4 fw7 lh-title">
+    <i class="fas fa-fingerprint mr2"></i>
+    Sign in
+  </h3>
+
+  <p class="mv3 f6 lh-copy">
+    Choose a username and password to sign in with. These credentials are used
+    to generate your wallet so make the password a good'un!
+  </p>
+
+  <form class="db"
+    @submit.prevent="submit">
+    <div class="mb3 pb2">
+      <label class="mb1 db f6 lh-title mid-gray">Username</label>
+      <input class="input-reset w-100 ph3 pv2 code f5 fw7 lh-title bg-white ba b--silver br2"
+        :class="{'b--red': !!username.error && username.blurred}"
+        type="text"
+        name="username"
+        x-model="username.value"
+        @blur="blur"
+        @input="input" />
+      <span class="db pt1 f7 fw7 lh-copy red tr"
+        x-show="!!username.error && username.blurred"
+        x-text="username.error"></span>
+    </div>
+
+    <div class="mb3 pb2">
+      <label class="mb1 db f6 lh-title mid-gray">Password</label>
+      <input class="input-reset w-100 ph3 pv2 code f5 fw7 lh-title bg-white ba b--silver br2"
+        :class="{'b--red': !!password.error && password.blurred}"
+        type="password"
+        name="password"
+        x-model="password.value"
+        @blur="blur"
+        @input="input" />
+      <span class="db pt1 f7 fw7 lh-copy red tr"
+        x-show="!!password.error && password.blurred"
+        x-text="password.error"></span>
+    </div>
+
+    <p class="mv3 pl3 f6 lh-copy dark-red bl bw1 b--dark-red">
+      This is a hackathon app. There is no password recovery feature.
+      <strong class="db fw7">You've been warned!</strong>
+    </p>
+
+    <button class="input-reset dib ph3 pv2 f5 fw7 lh-copy white bg-animate bg-green hover-bg-hot-pink pointer bn br2">
+      Sign in
+    </button>
+  </form>
+
+
+</div>

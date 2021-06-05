@@ -7,10 +7,19 @@
     "watch": "webpack --mode development --watch"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.3",
+    "@kingshott/iodine": "^4.0.0",
+    "alpinejs": "^2.8.2",
+    "axios": "^0.21.1",
+    "bsv": "2",
+    "paypresto.js": "^0.1.0-beta.10",
     "phoenix": "file:../deps/phoenix",
     "phoenix_html": "file:../deps/phoenix_html",
     "phoenix_live_view": "file:../deps/phoenix_live_view",
-    "topbar": "^0.1.4"
+    "run-sdk": "^0.6.24",
+    "topbar": "^0.1.4",
+    "txforge": "^0.2.3",
+    "univrse": "^0.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
@@ -18,10 +27,12 @@
     "babel-loader": "^8.0.0",
     "copy-webpack-plugin": "^5.1.1",
     "css-loader": "^3.4.2",
+    "file-loader": "^6.2.0",
     "hard-source-webpack-plugin": "^0.13.1",
     "mini-css-extract-plugin": "^0.9.0",
     "node-sass": "^4.13.1",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "regenerator-runtime": "^0.13.7",
     "sass-loader": "^8.0.2",
     "terser-webpack-plugin": "^2.3.2",
     "webpack": "^4.41.5",
