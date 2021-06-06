@@ -18,5 +18,5 @@
   <% :mint -> %>
     <%= live_component(@socket, ShftyWeb.Components.Minter) %>
   <% :token -> %>
-    <%= live_component(@socket, ShftyWeb.Components.Token) %>
+    <%= live_component(@socket, ShftyWeb.Components.Token, id: "jig-#{ @location }", location: @location) %>
 <% end %>

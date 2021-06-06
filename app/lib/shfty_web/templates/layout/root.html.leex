@@ -18,6 +18,8 @@
       src="<%= Routes.static_path(@conn, "/js/app.js") %>"
       defer
       phx-track-static></script>
+    <script src="<%= Routes.static_path(@conn, "/js/bsv.browser.min.js") %>"></script>
+    <script src="<%= Routes.static_path(@conn, "/js/run.browser.min.js") %>"></script>
   </head>
   <body class="ph3 sans-serif near-black bg-washed-yellow">
     <div class="mw6 center">

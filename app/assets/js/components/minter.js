@@ -1,5 +1,4 @@
-import { Envelope, Key } from 'univrse/dist/univrse.esm.js'
-import Run from 'run-sdk'
+import { Envelope } from 'univrse/dist/univrse.esm.js'
 import { embed } from 'paypresto.js'
 import Wallet from '../util/wallet'
 import PrestoPurse from '../util/presto-purse'
@@ -7,12 +6,6 @@ import { fileIconClass } from '../util/helpers'
 
 function bufToTypedArray(buf) {
   return new Uint8Array(buf.buffer, buf.byteOffset, buf.byteLength)
-}
-
-function camelize(str) {
-  return str
-    .replace(/\s(.)/g, c => c.toUpperCase())
-    .replace(/(\W)/g, '')
 }
 
 const MAX_FILE_SIZE = 1000000

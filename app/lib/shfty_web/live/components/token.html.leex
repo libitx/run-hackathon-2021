@@ -1,1 +1,57 @@
-<p>Hello</p>
+<div id="<%= @id %>"
+  x-data="App.Token()"
+  x-init="init('<%= @location %>')">
+  <template x-if="!jig">
+    <div class="flex flex-column items-center justify-center h4">
+      <i class="fas fa-circle-notch black-40 fa-4x fa-spin"></i>
+    </div>
+  </template>
+
+  <template x-if="jig">
+    <article class="bg-black-10 br3 overflow-hidden">
+      <header class="flex items-center pa3 bg-black-30 br--top">
+        <i class="fas fa-mask fa-lg white-60"></i>
+        <div class="pl3">
+          <h5 class="ma0 f6 fw7 lh-title white" x-text="jigName()"></h5>
+          <div class="f6 lh-title white-80" x-text="jigDesc()"></div>
+        </div>
+      </header>
+      <div class="h5" style="min-height: 16em;">
+        <template x-if="!ready && jig.env.header.cty">
+          <div class="flex flex-column items-center justify-center h-100">
+            <i class="fas fa-4x black-30" :class="fileIconClass(jig.env.header.cty)"></i>
+            <span class="mt3 f7 code black-50" x-text="jig.env.header.cty"></span>
+          </div>
+        </template>
+        <template x-if="ready && isText()">
+          <div class="pa3">
+            <pre class="ma0 pa0 code f5 fw7 lh-copy" x-text="payload"></pre>
+          </div>
+        </template>
+        <template x-if="ready && isImage()">
+          <div class="flex flex-column items-center justify-center h-100">
+            <img :src="dataUrl()">
+          </div>
+        </template>
+      </div>
+      <footer class="flex items-center pa3 bt b--black-10">
+        <div class="flex-auto">
+          <a class="dib ph3 pv2 link f7 fw7 lh-copy white bg-animate bg-black-30 hover-bg-black-20 pointer bn br2"
+            x-show="!ready"
+            @click.prevent="decrypt()">
+            Decrypt
+          </a>
+        </div>
+        <div>
+          <a class="dib mr2 ph3 pv2 link f7 fw7 lh-copy white bg-animate bg-black-30 hover-bg-black-20 pointer bn br2">
+            Send
+          </a>
+          <a class="dib ph3 pv2 link f7 fw7 lh-copy white bg-animate bg-black-30 hover-bg-black-20 pointer bn br2"
+            @click.prevent="destroy">
+            Destroy
+          </a>
+        </div>
+      </footer>
+    </article>
+  </template>
+</div>

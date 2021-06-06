@@ -1,4 +1,3 @@
-import Run from 'run-sdk'
 import Wallet from '../util/wallet'
 import { fileIconClass } from '../util/helpers'
 
@@ -9,7 +8,7 @@ const component = function() {
   return {
     ownerAddress: wallet.ownerAddress,
     pending: true,
-    tokens: [],
+    jigs: [],
 
     jigName(jig) {
       return jig?.metadata?.name || jig.constructor.metadata.name
@@ -37,10 +36,7 @@ const component = function() {
       for (let i = 0; i < utxos.length; i++) {
         const location = `${ utxos[i].txid }_o${ utxos[i].vout }`
         const jig = await run.load(location)
-        //console.log(jig.constructor.metadata)
-        console.log(jig.metadata)
-        console.log(jig.location)
-        this.tokens.push(jig)
+        this.jigs.push(jig)
       }
       this.pending = false
     },

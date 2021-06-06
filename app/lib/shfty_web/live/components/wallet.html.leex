@@ -7,7 +7,7 @@
       <i class="fas fa-wrench mr2"></i>
       Mint a token
     </h3>
-    <p class="mv3 f6 lh-copy" x-show="!pending && !tokens.length">
+    <p class="mv3 f6 lh-copy" x-show="!pending && !jigs.length">
       Step this way and create your very first <strong class="fw7">Shfty Nft</strong> token.
     </p>
 
@@ -18,27 +18,37 @@
 
   <!--<p x-text="ownerAddress"></p>-->
 
-  <div class="ma0 pa0 grid-wrap" x-show="tokens.length">
-    <template x-for="(jig, index) in tokens" :key="index">
-      <a :href="'/wallet/t/'+ jig.location"
-        class="db grow no-underline pointer"
-        @click.prevent="liveSocket.redirect('/wallet/t/'+ jig.location)">
-        <article class="bg-black-10 br3 overflow-hidden">
-          <header class="flex items-center pa3 bg-black-30 br--top">
-            <i class="fas fa-mask fa-lg white-60"></i>
-            <div class="pl3">
-              <h5 class="ma0 f6 fw7 lh-title white" x-text="jigName(jig)"></h5>
-              <div class="f6 lh-title white-80" x-text="jigDesc(jig)"></div>
+  <template x-if="pending && !jigs.length">
+    <div class="flex flex-column items-center justify-center h4">
+      <i class="fas fa-circle-notch black-40 fa-4x fa-spin"></i>
+    </div>
+  </template>
+
+  <template x-if="!pending && jigs.length">
+    <div class="ma0 pa0 grid-wrap">
+      <template x-for="(jig, index) in jigs" :key="index">
+        <a :href="'/wallet/t/'+ jig.location"
+          class="db grow no-underline pointer"
+          @click.prevent="liveSocket.redirect('/wallet/t/'+ jig.location)">
+          <article class="bg-black-10 br3 overflow-hidden">
+            <header class="flex items-center pa3 bg-black-30 br--top">
+              <i class="fas fa-mask fa-lg white-60"></i>
+              <div class="pl3">
+                <h5 class="ma0 f6 fw7 lh-title white" x-text="jigName(jig)"></h5>
+                <div class="f6 lh-title white-80" x-text="jigDesc(jig)"></div>
+              </div>
+            </header>
+            <div class="h4">
+              <template x-if="jig.env.header.cty">
+                <div class="flex flex-column items-center justify-center h-100">
+                  <i class="fas fa-3x black-30" :class="fileIconClass(jig.env.header.cty)"></i>
+                  <span class="mt3 f7 code black-50" x-text="jig.env.header.cty"></span>
+                </div>
+              </template>
             </div>
-          </header>
-          <div class="flex flex-column items-center justify-center h4">
-            <template x-if="jig.env.header.cty">
-              <i class="fas fa-3x black-30" :class="fileIconClass(jig.env.header.cty)"></i>
-              <span class="mt3 f7 code black-50" x-text="jig.env.header.cty"></span>
-            </template>
-          </div>
-        </article>
-      </a>
-    </template>
-  </ul>
+          </article>
+        </a>
+      </template>
+    </div>
+  </template>
 </div>
