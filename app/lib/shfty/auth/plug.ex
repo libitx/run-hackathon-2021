@@ -1,6 +1,9 @@
 defmodule Shfty.Auth.Plug do
   @moduledoc """
-  TODO
+  Auth plug that attempts to load the current user from the session.
+
+  If the `:allow_blank` option is false, the request is redirected to the
+  homepage unless a current can be found.
   """
   import Plug.Conn
   alias Shfty.{Auth, Users}

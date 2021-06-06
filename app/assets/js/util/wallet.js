@@ -4,6 +4,14 @@ import { sha256, pbkdf2 } from './crypto'
 
 const STORE_KEY = '_shfty_env'
 
+/**
+ * A user Wallet is derived from their username and password.
+ * The derived nodes serve the following purposes:
+ * 
+ * * `identity` - used for signing and encrypting data
+ * * `owner` - the RUN owner wallet
+ * * `purse` - the RUN purse wallet
+ */
 class Wallet {
   constructor(username, seed) {
     this.username = username
@@ -15,7 +23,8 @@ class Wallet {
   }
 
   /**
-   * Hash credentials using a pbkdf to generate a seed
+   * Creates a Bip32 64-bit seed from the username and password.
+   * Uses a pbkdf process with 128,000 iterations.
    */
   static async fromCredentials(username, password) {
     username = username.toLowerCase()

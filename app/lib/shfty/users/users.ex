@@ -7,13 +7,13 @@ defmodule Shfty.Users do
   alias Shfty.Users.User
 
   @doc """
-  TODO
+  Find a user by its ID.
   """
   def get_user(id),
     do: Repo.get(User, id)
 
   @doc """
-  TODO
+  Find a user by its username.
   """
   def get_user_by_username(username) do
     username = String.downcase(username)
@@ -23,20 +23,18 @@ defmodule Shfty.Users do
   end
 
   @doc """
-  TODO
+  Find a user by its username.
   """
-  def get_user_by(clauses) do
-    clauses = Enum.map clauses, fn
-      {key, value} when is_binary(key) ->
-        {String.to_existing_atom(key), value}
-      el ->
-        el
-    end
-    Repo.get_by(User, clauses)
+  def get_user_by_credentials(%{"username" => username, "xpub" => xpub}) do
+    username = String.downcase(username)
+    User
+    |> where([u], fragment("lower(?)", u.username) == ^username)
+    |> where([u], u.xpub == ^xpub)
+    |> Repo.one
   end
 
   @doc """
-  TODO
+  Creates a user.
   """
   def create_user(attrs \\ %{}) do
     %User{}
@@ -45,18 +43,15 @@ defmodule Shfty.Users do
   end
 
   @doc """
-  TODO
+  Find or creates a user.
   """
   def find_or_create_user(attrs \\ %{}) do
-    case get_user_by(attrs) do
+    case get_user_by_credentials(attrs) do
       %User{} = user ->
         {:ok, user}
       nil ->
         create_user(attrs)
     end
   end
-
-
-
 
 end

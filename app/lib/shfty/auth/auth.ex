@@ -1,6 +1,6 @@
 defmodule Shfty.Auth do
   @moduledoc """
-  TODO
+  Utility module to help with authticating users.
   """
   alias BSV.Extended.PublicKey
 
@@ -9,21 +9,21 @@ defmodule Shfty.Auth do
   @token_key "shfty.auth"
 
   @doc """
-  TODO
+  Creates a signed token from the user id.
   """
   def sign_token(conn, user) do
     Phoenix.Token.sign(conn, @token_key, user.id)
   end
 
   @doc """
-  TODO
+  Verifies the token and recovers the user id.
   """
   def verify_token(conn, token) do
     Phoenix.Token.verify(conn, @token_key, token, max_age: 86400)
   end
 
   @doc """
-  TODO
+  If present, gets the current user from the connection.
   """
   def get_current_user(conn) do
     user = Map.get(conn.private, :current_user)
@@ -31,7 +31,8 @@ defmodule Shfty.Auth do
   end
 
   @doc """
-  TODO
+  Verifies the given signature against the message. Derives the identity key
+  from the given xpub.
   """
   def verify_signed_message(conn, sig, message, xpub) do
     with %PublicKey{} = master <- BSV.Extended.PublicKey.from_string(xpub),
@@ -41,9 +42,8 @@ defmodule Shfty.Auth do
     end
   end
 
-
   @doc """
-  TODO
+  Verifies the message is a kosha CSRF token.
   """
   def verify_message(conn, message) do
     csrf_token = Plug.Conn.get_session(conn, "_csrf_token")
@@ -58,9 +58,8 @@ defmodule Shfty.Auth do
     end
   end
 
-
   @doc """
-  TODO
+  Verifies the given signature against the message.
   """
   def verify_signature(sig, message, pubkey) do
     BSV.Message.verify(sig, message, pubkey, encoding: :base64)

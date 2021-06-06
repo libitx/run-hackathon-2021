@@ -50,11 +50,3 @@ defmodule ShftyWeb.WalletLive do
   end
 
 end
-
-
-
-#with %PublicKey{} = master <- BSV.Extended.PublicKey.from_string(xpub),
-#         %PublicKey{key: pubkey} <- BSV.Extended.Children.derive(master, "M/0")
-#    do
-#      verify_message(conn, message) and verify_signature(sig, message, pubkey)
-#    end

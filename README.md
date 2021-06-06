@@ -4,21 +4,43 @@ This repository is the submission for the Run Hackathon 2021 from team **Shfty**
 
 ![Shfty](https://github.com/libitx/run-hackathon-2021/raw/master/media/shfty.png)
 
-**Team:**
+#### Team:
 
 * [libitx](https://github.com/libitx)
 
 ## Objectives
 
-The overarching objective is simply to get some experience playing with RUN and create and share ways of integrating RUN with some of my own tools. 
+This Hackathon is the first time I have used RUN, so my personal goals are simply to get some experience playing with RUN and to create and share ways of integrating RUN with some of my own tools.
 
-1. Create a Berry class for loading [Univrse](https://univrse.network/) transactions into jigs ✅
+I'm particularly keen to integrate [Univrse](https://univrse.network/) with RUN, and experiment with creating NFTs secured with encryption. I'm also keen to nail how use [paypresto](https://www.paypresto.co) as a RUN purse and release a simple plug'n'play solution as part of the [paypresto.js](https://github.com/libitx/paypresto.js) library.
+
+My objectives:
+
+1. Create a Berry class for loading Univrse transactions into jigs ✅
 2. Create sidekick code for decoding Univrse envelopes in the RUN context ✅
-3. Create a jig class for creating NFTs from Univrse envelopes ✅
-4. Experiment with using [paypresto](https://www.paypresto.co) as a RUN purse and if needed create a mega simply library that makes it as easy as possible for others
-5. Build a mega simple POC app for minting and sending **Shfty Nfts**
+3. Create a jig class for creating NFTs that wrap Univrse data payloads directly ✅
+4. Design a paypresto Purse class that is simple to use and integrate in others' apps ✅
+5. Build a mega simple proof-of-concept app for minting and sending **Shfty Nfts** ✅
 
-## 1. `U` Berry class
+## Introducing "Shfty Nfts"
+
+**Shfty Nfts** are secret NFTs where only the holder of the token is able to decrypt the content within. When a Shfty Nft is sent to someone else, the content is re-encrypted for the new recipient.
+
+#### [👉 Check Out Shft Nfts here 👈](https://shfty.chronoslabs.net)
+
+The **Shfty Nfts** app is a minimal Phoenix application, the source code can be found at the path `app`. There's lots of code in there but I'll highlight some of the juicy bits...
+
+### 1. Novel pure Bitcoin authentication mechanism
+
+This isn't really RUN specific but I think it's cool and worth mentioning. When signing in a wallet is deterministically generates client side using a `pbkdf` process on the username and password. Then to authenticate the client signs a masked CSRF token and sends the signature, token and xpub to the server. If the token and the signature is valid, the app lets the user in. **No passwords ever go over the wire**. Some code worth checking out:
+
+* [Client-side Wallet class the derives from user credentials](https://github.com/libitx/run-hackathon-2021/blob/master/app/assets/js/util/wallet.js)
+* Server-side [Auth module](https://github.com/libitx/run-hackathon-2021/blob/master/app/lib/shfty/auth/auth.ex), [Auth plug](https://github.com/libitx/run-hackathon-2021/blob/master/app/lib/shfty/auth/plug.ex) and [Auth controller](https://github.com/libitx/run-hackathon-2021/blob/master/app/lib/shfty_web/controllers/auth_controller.ex)
+
+
+
+
+### 1. `U` Berry class
 
 The `U` class loads external [Univrse](https://univrse.network/) envelope transactions into a JavaScript object for use in your jigs.
 
@@ -44,7 +66,7 @@ env.signature     // => if present, signature object or array of signatures
 env.recipient     // => if present, recipient object or array of recipients
 ```
 
-## 2. Sidekick code for decoding Univrse envelopes
+### 2. Sidekick code for decoding Univrse envelopes
 
 The `Envelope` class is used to decode raw Univrse binary data into a structured Envelope object. The `CBOR` class decodes Concise Binary Object Representation data into JavaScript values.
 
