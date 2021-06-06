@@ -3,7 +3,7 @@ import { Envelope, util } from 'univrse/dist/univrse.esm.js'
 import { embed } from 'paypresto.js'
 import Wallet from '../util/wallet'
 import PrestoPurse from '../util/presto-purse'
-import { fileIconClass } from '../util/helpers'
+import { bufToTypedArray, fileIconClass } from '../util/helpers'
 
 const component = function() {
   let run
@@ -17,6 +17,7 @@ const component = function() {
     ready: false,
     sending: false,
     searched: false,
+    paying: false,
 
     user: {
       username: '',
@@ -61,20 +62,20 @@ const component = function() {
       const purse = new PrestoPurse({
         key: wallet.purse.privKey,
         description: 'Shfty Nft minter',
-        onBefore: payment => {
-          payment.mount(embed(this.$refs.paypresto))
+        beforePay: payment => {
+          payment.mount(embed(this.$refs.paypresto, { style: ['rounded'] }))
         },
-        onAfter: tx => {
-          console.log(tx)
-          //setTimeout(_ => {
-          //  window.liveSocket.redirect('/wallet')
-          //}, 2500)
+        afterPay: _tx => {
+          setTimeout(_ => {
+            window.liveSocket.redirect('/wallet')
+          }, 2500)
         }
       })
 
       run = new window.Run({
         network: 'main',
         owner: wallet.owner.privKey.toWif(),
+        //cache: new Run.plugins.LocalCache(),
         purse,
         trust: [
           '73c0da3d071389ec188ab9160ede4d8e929ce14ed793c117e17512276eca076d',
@@ -98,6 +99,7 @@ const component = function() {
 
     async destroy() {
       if (confirm('Are you sure? This action cannot be undone.')) {
+        this.paying = true
         this.jig.destroy()
         await this.jig.sync()
         window.liveSocket.redirect('/wallet')
@@ -114,8 +116,7 @@ const component = function() {
     },
 
     async send() {
-      return alert("Unfortunately I couldn't got sending functioning by the end of the hackthon. Sad!")
-
+      this.paying = true
       const env = Envelope.fromBuffer( Buffer.from(this.jig.env.$rawHex, 'hex') )
       if (env.recipient) {
         await env.decrypt(wallet.identityKey)
@@ -124,15 +125,13 @@ const component = function() {
       const { address, pubkey } = this.user
       const key = util.fromBsvPubKey( PubKey.fromHex(pubkey) )
       await env.encrypt(key, { alg: 'ECDH-ES+A128GCM', kid: address })
-      console.log(address, env.toBuffer())
-      await this.jig.send(address)
+      await this.jig.send(address, bufToTypedArray(env.toBuffer()))
     }
   }
 }
 
 const hook = {
   mounted() {
-    console.log('liveview hoow')
     this.el.livePushEvent = (...args) => this.pushEvent(...args)
   }
 }

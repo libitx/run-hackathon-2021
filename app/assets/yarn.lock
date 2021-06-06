@@ -4629,10 +4629,10 @@ pathval@^1.1.1:
   resolved "https://registry.yarnpkg.com/pathval/-/pathval-1.1.1.tgz#8534e77a77ce7ac5a2512ea21e0fdb8fcf6c3d8d"
   integrity sha512-Dp6zGqpTdETdR63lehJYPeIOqpiNBNtc7BpWSLrOje7UaIsE5aY92r/AunQA7rsXvet3lrJ3JnZX29UPTKXyKQ==
 
-paypresto.js@^0.1.0-beta.10:
-  version "0.1.0-beta.10"
-  resolved "https://registry.yarnpkg.com/paypresto.js/-/paypresto.js-0.1.0-beta.10.tgz#b254f9e45abfa543413d4028056368c77357cc1f"
-  integrity sha512-tDmGQaeIYrgp9bwhjRa1LnPUfrrGEH+SoWZU/EJWI2V1UsU+oPrL6lFQZ4mXqZgqveMl7UZ9TwXf/CBMimHEWQ==
+paypresto.js@^0.1.0-beta.13:
+  version "0.1.0-beta.13"
+  resolved "https://registry.yarnpkg.com/paypresto.js/-/paypresto.js-0.1.0-beta.13.tgz#c92812e183ebd449c75d1e2d2f382e08069c8bec"
+  integrity sha512-7VmR96A0e3bJop0WwKa+2qp32ntH5jZzOGGVnVS95L6jrqsj7WMXCEwVwuf+7bMzNd+BDAqdg6faoaPybGDbPA==
   dependencies:
     energy "^0.8.0"
     node-fetch "^2.6.0"
@@ -6143,10 +6143,10 @@ tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-0.14.5.tgz#5ae68177f192d4456269d108afa93ff8743f4f64"
   integrity sha1-WuaBd/GS1EViadEIr6k/+HQ/T2Q=
 
-txforge@^0.2.3:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/txforge/-/txforge-0.2.3.tgz#8e90871e62bda21c5865b04c6cc9fb2af79b7d47"
-  integrity sha512-JCKx0QrCLatKLmzC444Ab7CFYbUtMjjw/DimDRwO+Qfvy1KGyqBGvYFhQiXbaTcjd8gWTyLl/qrTuH6zpgLBjA==
+txforge@^0.2.4:
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/txforge/-/txforge-0.2.4.tgz#f0ab493f5cb9b041849384bae149e7e56966311c"
+  integrity sha512-wUWYsTQC9WPT2/+u2yg1mr4zCLU4w7Kla6z34aji2NVKBhoyAWW6T7Al5R+dF+jyowd/BZh+GbP63jZJ/fk5sA==
 
 type-detect@^4.0.0, type-detect@^4.0.5:
   version "4.0.8"

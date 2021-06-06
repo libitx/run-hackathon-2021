@@ -2,11 +2,7 @@ import { Envelope } from 'univrse/dist/univrse.esm.js'
 import { embed } from 'paypresto.js'
 import Wallet from '../util/wallet'
 import PrestoPurse from '../util/presto-purse'
-import { fileIconClass } from '../util/helpers'
-
-function bufToTypedArray(buf) {
-  return new Uint8Array(buf.buffer, buf.byteOffset, buf.byteLength)
-}
+import { bufToTypedArray, fileIconClass } from '../util/helpers'
 
 const MAX_FILE_SIZE = 300000
 
@@ -29,10 +25,10 @@ const component = function() {
       const purse = new PrestoPurse({
         key: wallet.purse.privKey,
         description: 'Shfty Nft minter',
-        onBefore: payment => {
+        beforePay: payment => {
           payment.mount(embed(this.$refs.paypresto, { style: ['rounded'] }))
         },
-        onAfter: tx => {
+        afterPay: _tx => {
           setTimeout(_ => {
             window.liveSocket.redirect('/wallet')
           }, 2500)
@@ -42,6 +38,7 @@ const component = function() {
       run = new Run({
         network: 'main',
         owner: wallet.owner.privKey.toWif(),
+        //cache: new Run.plugins.LocalCache(),
         purse,
         trust: [
           '73c0da3d071389ec188ab9160ede4d8e929ce14ed793c117e17512276eca076d',

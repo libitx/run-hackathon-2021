@@ -12,13 +12,13 @@
     "alpinejs": "^2.8.2",
     "axios": "^0.21.1",
     "bsv": "2",
-    "paypresto.js": "^0.1.0-beta.10",
+    "paypresto.js": "^0.1.0-beta.13",
     "phoenix": "file:../deps/phoenix",
     "phoenix_html": "file:../deps/phoenix_html",
     "phoenix_live_view": "file:../deps/phoenix_live_view",
     "run-sdk": "^0.6.24",
     "topbar": "^0.1.4",
-    "txforge": "^0.2.3",
+    "txforge": "^0.2.4",
     "univrse": "^0.1.2"
   },
   "devDependencies": {

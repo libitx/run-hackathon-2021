@@ -1,3 +1,7 @@
+export function bufToTypedArray(buf) {
+  return new Uint8Array(buf.buffer, buf.byteOffset, buf.byteLength)
+}
+
 export function fileIconClass(cty) {
   switch(true) {
     case cty === 'text/csv':

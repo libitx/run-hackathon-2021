@@ -32,10 +32,6 @@ defmodule ShftyWeb.AuthController do
   end
 
   # TODO
-  defp unauthorized(conn, r) do
-    IO.puts "~~~~"
-    IO.inspect r
-    resp(conn, :unauthorized, "")
-  end
+  defp unauthorized(conn, _), do: resp(conn, :unauthorized, "")
 
 end

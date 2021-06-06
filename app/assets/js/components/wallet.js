@@ -24,6 +24,7 @@ const component = function() {
       run = new Run({
         network: 'main',
         owner: wallet.owner.privKey.toWif(),
+        //cache: new Run.plugins.LocalCache(),
         trust: [
           '73c0da3d071389ec188ab9160ede4d8e929ce14ed793c117e17512276eca076d',
           '48df6857b6fc86d112e558302575a46f88cfff37f58fb9ddc1f5f514a065db1c'

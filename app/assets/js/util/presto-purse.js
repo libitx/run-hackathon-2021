@@ -5,11 +5,11 @@ import { Forge, Cast } from 'txforge'
 class PrestoPurse {
   constructor(params) {
     this.params = params
-    if (typeof this.params.onBefore !== 'function') {
-      throw new Error('Must set onBefore() callback on PrestoPurse')
+    if (typeof this.params.beforePay !== 'function') {
+      throw new Error('Must set beforePay() callback on PrestoPurse')
     }
-    if (typeof this.params.onAfter !== 'function') {
-      this.params.onAfter = (_ => {})
+    if (typeof this.params.afterPay !== 'function') {
+      this.params.afterPay = function(){}
     }
   }
 
@@ -42,18 +42,16 @@ class PrestoPurse {
 
       payment
         .on('funded', payment => {
-          console.log('funded')
           payment.forge.build()
-          const rawtx = payment
-            .signTxIn(payment.forge.inputs.length-1, { keyPair: payment.keyPair })
-            .getRawTx()
-            
+          payment.signTxIn(payment.forge.inputs.length-1, { keyPair: payment.keyPair })
+          const rawtx = payment.getRawTx()
+
           resolve(rawtx)
-          this.params.onAfter(rawtx)
+          this.params.afterPay(rawtx)
         })
         .on('error', err => reject(err))
 
-      this.params.onBefore(payment)
+      this.params.beforePay(payment)
     })
   }
 }

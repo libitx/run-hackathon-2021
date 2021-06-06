@@ -25,14 +25,21 @@ defmodule ShftyWeb.WalletLive do
   def handle_event("user.search", username, socket) do
     with %User{} = user <- Users.get_user_by_username(username),
          %Extended.PublicKey{} = master <- Extended.PublicKey.from_string(user.xpub),
-         %Extended.PublicKey{key: pubkey} <- Extended.Children.derive(master, "M/0/0"),
-         pubkey <- BSV.Crypto.ECDSA.PublicKey.compress(pubkey),
-         %BSV.Address{} = address <- BSV.Address.from_public_key(pubkey),
-         address <- BSV.Address.to_string(address)
+         %Extended.PublicKey{key: identity} <- Extended.Children.derive(master, "M/0"),
+         %Extended.PublicKey{key: owner} <- Extended.Children.derive(master, "M/0/0")
     do
+      pubkey = identity
+      |> BSV.Crypto.ECDSA.PublicKey.compress()
+      |> Base.encode16(case: :lower)
+
+      address = owner
+      |> BSV.Crypto.ECDSA.PublicKey.compress()
+      |> BSV.Address.from_public_key()
+      |> BSV.Address.to_string()
+
       user = %{
         username: user.username,
-        pubkey: Base.encode16(pubkey, case: :lower),
+        pubkey: pubkey,
         address: address
       }
       {:reply, user, socket}
