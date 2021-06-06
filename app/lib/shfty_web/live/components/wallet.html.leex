@@ -8,7 +8,8 @@
       Mint a token
     </h3>
     <p class="mv3 f6 lh-copy" x-show="!pending && !jigs.length">
-      Step this way and create your very first <strong class="fw7">Shfty Nft</strong> token.
+      It looks like you don't have any <strong class="fw7">Shfty Nft</strong> tokens!
+      Step this way and mint your own secret NFT.
     </p>
 
     <%= live_redirect "Create Shfty Nft",
@@ -16,7 +17,7 @@
         class: "dib ph3 pv2 link f5 fw7 lh-copy white bg-animate bg-black-30 hover-bg-black-20 pointer bn br2" %>
   </div>
 
-  <!--<p x-text="ownerAddress"></p>-->
+  <p x-text="ownerAddress"></p>
 
   <template x-if="pending && !jigs.length">
     <div class="flex flex-column items-center justify-center h4">

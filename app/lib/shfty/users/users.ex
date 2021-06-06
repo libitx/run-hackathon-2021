@@ -15,6 +15,16 @@ defmodule Shfty.Users do
   @doc """
   TODO
   """
+  def get_user_by_username(username) do
+    username = String.downcase(username)
+    User
+    |> where([u], fragment("lower(?)", u.username) == ^username)
+    |> Repo.one
+  end
+
+  @doc """
+  TODO
+  """
   def get_user_by(clauses) do
     clauses = Enum.map clauses, fn
       {key, value} when is_binary(key) ->

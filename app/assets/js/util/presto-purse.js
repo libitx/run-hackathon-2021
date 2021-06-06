@@ -13,13 +13,18 @@ class PrestoPurse {
     }
   }
 
-  async pay(rawtx, _parents) {
+  async pay(rawtx, parents) {
     const forge = new Forge()
     const tx = Tx.fromHex(rawtx)
+    let nextVin = 0
 
-    tx.txIns.forEach(txIn => {
-      console.log('currently not adding txIns')
-      console.log({ txIn })
+    tx.txIns.forEach((txIn, i) => {
+      const txid = txIn.txHashBuf.reverse().toString('hex')
+      const vout = txIn.txOutNum
+      const satoshis = parents[i].satoshis
+      const script = parents[i].script
+      forge.addInput({ txid, vout, satoshis, script })
+      nextVin++
     })
 
     tx.txOuts.forEach(({ script, valueBn }) => {
@@ -37,7 +42,12 @@ class PrestoPurse {
 
       payment
         .on('funded', payment => {
-          const rawtx = payment.signTx().getRawTx()
+          console.log('funded')
+          payment.forge.build()
+          const rawtx = payment
+            .signTxIn(payment.forge.inputs.length-1, { keyPair: payment.keyPair })
+            .getRawTx()
+            
           resolve(rawtx)
           this.params.onAfter(rawtx)
         })

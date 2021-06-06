@@ -1,8 +1,14 @@
 /* This file is for your main application css. */
 .grid-wrap {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 20px;
+}
+
+@media screen and (min-width: 480px) {
+  .grid-wrap {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";

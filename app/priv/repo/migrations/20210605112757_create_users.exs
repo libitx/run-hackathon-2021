@@ -10,7 +10,7 @@ defmodule Shfty.Repo.Migrations.CreateUsers do
       timestamps()
     end
 
-    create unique_index(:users, [:username])
+    create index(:users, ["lower(username)"], name: :username_index, unique: true)
     create index(:users, [:xpub])
   end
 end

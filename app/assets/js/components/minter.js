@@ -8,7 +8,7 @@ function bufToTypedArray(buf) {
   return new Uint8Array(buf.buffer, buf.byteOffset, buf.byteLength)
 }
 
-const MAX_FILE_SIZE = 1000000
+const MAX_FILE_SIZE = 300000
 
 const component = function() {
   let run, NFT;
@@ -43,16 +43,15 @@ const component = function() {
         owner: wallet.owner.privKey.toWif(),
         purse,
         trust: [
-          '69a222fd82ca857a1892419ebc89ebac5e8acf88818659cf30982b3707540d70',
-          '7976807fa3f75dfc3c63cbc3d6a416b9e8935652bbb369708ecab3c4b0c27754'
+          '73c0da3d071389ec188ab9160ede4d8e929ce14ed793c117e17512276eca076d',
+          '48df6857b6fc86d112e558302575a46f88cfff37f58fb9ddc1f5f514a065db1c'
         ]
       })
       run.activate()
-      NFT = await run.load('7976807fa3f75dfc3c63cbc3d6a416b9e8935652bbb369708ecab3c4b0c27754_o1')
+      NFT = await run.load('48df6857b6fc86d112e558302575a46f88cfff37f58fb9ddc1f5f514a065db1c_o1')
     },
 
     async drop(file) {
-      console.log(file)
       this.isDragging = false
       if (file.size > MAX_FILE_SIZE) return alert('File size too large.')
 
@@ -76,11 +75,7 @@ const component = function() {
       await env.sign(wallet.identityKey, { alg: 'ES256K', kid: wallet.identityAddress })
       await env.encrypt(wallet.identityKey, { alg: 'ECDH-ES+A128GCM', kid: wallet.identityAddress })
 
-      const token = new NFT(bufToTypedArray(env.toBuffer()), meta)
-      //run.transaction(_ => {
-      //  
-      //  token.metadata = this.meta
-      //})
+      new NFT(bufToTypedArray(env.toBuffer()), meta)
     }
   }
 }

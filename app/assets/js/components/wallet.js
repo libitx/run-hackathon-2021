@@ -25,9 +25,8 @@ const component = function() {
         network: 'main',
         owner: wallet.owner.privKey.toWif(),
         trust: [
-          '69a222fd82ca857a1892419ebc89ebac5e8acf88818659cf30982b3707540d70',
-          'dfccfd70db69b1894de7d6c2a45867cc0bcc27e83d13a4d7b06f79ebe60e37dc',
-          '7976807fa3f75dfc3c63cbc3d6a416b9e8935652bbb369708ecab3c4b0c27754'
+          '73c0da3d071389ec188ab9160ede4d8e929ce14ed793c117e17512276eca076d',
+          '48df6857b6fc86d112e558302575a46f88cfff37f58fb9ddc1f5f514a065db1c'
         ]
       })
       run.activate()

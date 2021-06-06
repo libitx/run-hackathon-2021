@@ -1,4 +1,6 @@
 <div id="<%= @id %>"
+  phx-hook="Token"
+  phx-target="#<%= @id %>"
   x-data="App.Token()"
   x-init="init('<%= @location %>')">
   <template x-if="!jig">
@@ -16,6 +18,7 @@
           <div class="f6 lh-title white-80" x-text="jigDesc()"></div>
         </div>
       </header>
+
       <div class="h5" style="min-height: 16em;">
         <template x-if="!ready && jig.env.header.cty">
           <div class="flex flex-column items-center justify-center h-100">
@@ -33,7 +36,25 @@
             <img :src="dataUrl()">
           </div>
         </template>
+        <template x-if="ready && isFile()">
+          <div class="flex flex-column items-center justify-center h-100">
+            <div class="flex items-center w-100 ph5">
+              <div><i class="fas fa-4x black-30" :class="fileIconClass(jig.env.header.cty)"></i></div>
+              <div class="flex-auto pl3">
+                <div class="flex items-center justify-between f6 lh-copy mid-gray">
+                  <span class="f7 gray" x-text="fileSize(payload.length)"></span>
+                  <a class="dib ph3 pv2 link f6 fw7 lh-copy white bg-animate bg-black-30 hover-bg-black-20 pointer bn br2"
+                    :href="dataUrl()"
+                    :download="jigName()">
+                    Download
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </template>
       </div>
+
       <footer class="flex items-center pa3 bt b--black-10">
         <div class="flex-auto">
           <a class="dib ph3 pv2 link f7 fw7 lh-copy white bg-animate bg-black-30 hover-bg-black-20 pointer bn br2"
@@ -42,16 +63,69 @@
             Decrypt
           </a>
         </div>
-        <div>
-          <a class="dib mr2 ph3 pv2 link f7 fw7 lh-copy white bg-animate bg-black-30 hover-bg-black-20 pointer bn br2">
-            Send
-          </a>
-          <a class="dib ph3 pv2 link f7 fw7 lh-copy white bg-animate bg-black-30 hover-bg-black-20 pointer bn br2"
-            @click.prevent="destroy">
-            Destroy
-          </a>
-        </div>
+        <template x-if="!sending">
+          <div>
+            <a class="dib mr2 ph3 pv2 link f7 fw7 lh-copy white bg-animate bg-black-30 hover-bg-black-20 pointer bn br2"
+              @click.prevent="sending=true">
+              Send
+            </a>
+            <a class="dib ph3 pv2 link f7 fw7 lh-copy white bg-animate bg-black-30 hover-bg-black-20 pointer bn br2"
+              @click.prevent="destroy">
+              Destroy
+            </a>
+          </div>
+        </template>
       </footer>
+
+      <template x-if="sending">
+        <div class="pa3">
+          <form class="db" @submit.prevent="submit">
+            <p class="mt0 mb3 f6 lh-copy">
+              Lookup a Shfty user by their username.
+              <strong class="db fw7">Currently only other Shfty wallets supported.</strong>
+            </p>
+            <div class="mb2 pb2">
+              <label class="mb1 db f6 lh-title mid-gray">Shfty username</label>
+              <input class="input-reset w-100 ph3 pv2 code f5 fw7 lh-title bg-white ba b--silver br2"
+                type="text"
+                name="username"
+                :disabled="!!user.address"
+                x-model="user.username" />
+              <span class="db pt1 f7 fw7 lh-copy red tr"
+                x-show="searched && !user.address">
+                No user found!
+              </span>
+            </div>
+            <div class="mb2 pb2" x-show="user.address">
+              <label class="mb1 db f6 lh-title mid-gray">User address</label>
+              <input class="input-reset w-100 ph3 pv2 code f5 fw7 lh-title bg-white ba b--silver br2"
+                type="text"
+                name="address"
+                disabled
+                x-model="user.address" />
+              <span class="db pt1 f7 fw7 lh-copy red tr"
+                x-show="searched && !user.address">
+                No user found!
+              </span>
+            </div>
+
+            <div class="mt3">
+              <a class="dib ph3 pv2 link f7 fw7 lh-copy white bg-animate bg-black-30 hover-bg-black-20 pointer bn br2"
+                x-show="!user.address"
+                @click.prevent="lookup">
+                Lookup
+              </a>
+              <a class="dib ph3 pv2 link f7 fw7 lh-copy white bg-animate bg-black-30 hover-bg-black-20 pointer bn br2"
+                x-show="user.address"
+                @click.prevent="send">
+                Send
+              </a>
+            </div>
+          </form>
+
+          <div x-ref="paypresto"></div>
+        </div>
+      </template>
     </article>
   </template>
 </div>
