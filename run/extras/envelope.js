@@ -27,7 +27,10 @@ class Envelope {
    * @param {Uint8Array} data CBOR encoded envelope
    */
   static decode(data) {
-    return new Envelope(...CBOR.decode(data))
+    const env = new Envelope(...CBOR.decode(data))
+    // TODO - replace with b64 encoded envelope
+    env.$rawHex = [...data].map(x => x.toString(16).padStart(2, '0')).join('')
+    return env
   }
 
   _decodeSignature(parts) {
@@ -53,8 +56,8 @@ Envelope.deps = { CBOR }
 
 Envelope.presets = {
   main: {
-    location: '69a222fd82ca857a1892419ebc89ebac5e8acf88818659cf30982b3707540d70_o2',
-    origin: '69a222fd82ca857a1892419ebc89ebac5e8acf88818659cf30982b3707540d70_o2',
+    location: '73c0da3d071389ec188ab9160ede4d8e929ce14ed793c117e17512276eca076d_o2',
+    origin: '73c0da3d071389ec188ab9160ede4d8e929ce14ed793c117e17512276eca076d_o2',
     nonce: 1,
     owner: '1G6uiPUxTidmqDpzj9WQbt75vFDCeeSCJg',
     satoshis: 0

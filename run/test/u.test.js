@@ -22,6 +22,7 @@ describe('Simple payload', () => {
     assert.equal(env.payload, 'This is a test!')
     assert.isUndefined(env.signature)
     assert.isUndefined(env.recipient)
+    assert.match(env.$rawHex, /[a-f0-9]{2,}/)
   })
 })
 

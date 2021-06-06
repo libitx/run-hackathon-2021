@@ -12,6 +12,7 @@ class ShftyNft extends Jig {
    * either a `U` Berry or a Uint8Array binary encoded Envelope .
    * 
    * @param {U|Uint8Array} env Universe envelope
+   * @param {Object} metadata Metadata params
    * @returns {Jig} 
    */
   init(env, metadata) {
@@ -41,7 +42,6 @@ class ShftyNft extends Jig {
     } else {
       try {
         this.env = Envelope.decode(env)
-        this.env.raw = env
       } catch(e) {
         throw new Error('Invalid Univrse Envelope')
       }
@@ -59,8 +59,8 @@ ShftyNft.metadata = {
 
 ShftyNft.presets = {
   main: {
-    location: '7976807fa3f75dfc3c63cbc3d6a416b9e8935652bbb369708ecab3c4b0c27754_o1',
-    origin: '7976807fa3f75dfc3c63cbc3d6a416b9e8935652bbb369708ecab3c4b0c27754_o1',
+    location: '48df6857b6fc86d112e558302575a46f88cfff37f58fb9ddc1f5f514a065db1c_o1',
+    origin: '48df6857b6fc86d112e558302575a46f88cfff37f58fb9ddc1f5f514a065db1c_o1',
     nonce: 1,
     owner: '1G6uiPUxTidmqDpzj9WQbt75vFDCeeSCJg',
     satoshis: 0

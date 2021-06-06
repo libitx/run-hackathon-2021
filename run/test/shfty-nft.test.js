@@ -33,7 +33,7 @@ describe('ShftyNft', () => {
     const token = new ShftyNftCode(envBuf)
     assert.equal(token.env.header.proto, 'runtest')
     assert.equal(token.env.payload, 'This is a test!')
-    assert.deepEqual(token.env.raw, envBuf)
+    assert.equal(token.env.$rawHex, Buffer.from(envBuf).toString('hex'))
   })
 
   it('creates a token with metadata', async () => {
@@ -45,7 +45,7 @@ describe('ShftyNft', () => {
     const token = new ShftyNftCode(envBuf)
     await token.sync()
     const owner = token.owner
-    const env = Envelope.fromBuffer(token.env.raw)
+    const env = Envelope.fromBuffer( Buffer.from(token.env.$rawHex, 'hex') )
     env.payload = 'This is an amended env'
     const buf = env.toBuffer()
     const envBuf2 = new Uint8Array(buf.buffer, buf.byteOffset, buf.byteLength)
@@ -79,7 +79,7 @@ describe('LimitedShftyNft when total is 0', () => {
     assert.isAtLeast(token.num, 1)
     assert.equal(token.env.header.proto, 'runtest')
     assert.equal(token.env.payload, 'This is a test!')
-    assert.deepEqual(token.env.raw, envBuf)
+    assert.equal(token.env.$rawHex, Buffer.from(envBuf).toString('hex'))
   })
 
   it('mints a token with metadata', async () => {
@@ -91,7 +91,7 @@ describe('LimitedShftyNft when total is 0', () => {
     const token = LimitedShftyNftCode.mint(envBuf)
     await token.sync()
     const owner = token.owner
-    const env = Envelope.fromBuffer(token.env.raw)
+    const env = Envelope.fromBuffer( Buffer.from(token.env.$rawHex, 'hex') )
     env.payload = 'This is an amended env'
     const buf = env.toBuffer()
     const envBuf2 = new Uint8Array(buf.buffer, buf.byteOffset, buf.byteLength)

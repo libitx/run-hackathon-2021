@@ -233,8 +233,8 @@ class CBOR {
 
 CBOR.presets = {
   main: {
-    location: '69a222fd82ca857a1892419ebc89ebac5e8acf88818659cf30982b3707540d70_o3',
-    origin: '69a222fd82ca857a1892419ebc89ebac5e8acf88818659cf30982b3707540d70_o3',
+    location: '73c0da3d071389ec188ab9160ede4d8e929ce14ed793c117e17512276eca076d_o3',
+    origin: '73c0da3d071389ec188ab9160ede4d8e929ce14ed793c117e17512276eca076d_o3',
     nonce: 1,
     owner: '1G6uiPUxTidmqDpzj9WQbt75vFDCeeSCJg',
     satoshis: 0

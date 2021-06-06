@@ -15,6 +15,7 @@ class LimitedShftyNft extends ShftyNft {
    * 
    * @param {Number} n Token number
    * @param {U|Uint8Array} env Universe envelope
+   * @param {Object} metadata Metadata params
    * @returns {Jig} 
    */
   init(n, env, metadata) {
@@ -30,6 +31,7 @@ class LimitedShftyNft extends ShftyNft {
    * Berry or a Uint8Array binary encoded Envelope .
    * 
    * @param {U|Uint8Array} env Universe envelope
+   * @param {Object} metadata Metadata params
    * @returns {Jig} 
    */
   static mint(env, metadata) {
@@ -53,8 +55,8 @@ LimitedShftyNft.metadata = {
 
 LimitedShftyNft.presets = {
   main: {
-    location: '7976807fa3f75dfc3c63cbc3d6a416b9e8935652bbb369708ecab3c4b0c27754_o2',
-    origin: '7976807fa3f75dfc3c63cbc3d6a416b9e8935652bbb369708ecab3c4b0c27754_o2',
+    location: '48df6857b6fc86d112e558302575a46f88cfff37f58fb9ddc1f5f514a065db1c_o2',
+    origin: '48df6857b6fc86d112e558302575a46f88cfff37f58fb9ddc1f5f514a065db1c_o2',
     nonce: 1,
     owner: '1G6uiPUxTidmqDpzj9WQbt75vFDCeeSCJg',
     satoshis: 0

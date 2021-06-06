@@ -7,12 +7,12 @@ const { Hex, txo } = extra
  */
 class U extends Berry {
   init(buf) {
-    const { header, payload, signature, recipient } = Envelope.decode(buf)
-    this.raw = buf
+    const { header, payload, signature, recipient, $rawHex } = Envelope.decode(buf)
     this.header = header
     this.payload = payload
     this.signature = signature
     this.recipient = recipient
+    this.$rawHex = $rawHex
   }
 
   static async pluck(location, fetch) {
@@ -47,8 +47,8 @@ U.deps = { Envelope, Hex, txo }
 
 U.presets = {
   main: {
-    location: '69a222fd82ca857a1892419ebc89ebac5e8acf88818659cf30982b3707540d70_o1',
-    origin: '69a222fd82ca857a1892419ebc89ebac5e8acf88818659cf30982b3707540d70_o1',
+    location: '73c0da3d071389ec188ab9160ede4d8e929ce14ed793c117e17512276eca076d_o1',
+    origin: '73c0da3d071389ec188ab9160ede4d8e929ce14ed793c117e17512276eca076d_o1',
     nonce: 1,
     owner: '1G6uiPUxTidmqDpzj9WQbt75vFDCeeSCJg',
     satoshis: 0
