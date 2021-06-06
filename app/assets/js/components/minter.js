@@ -23,13 +23,14 @@ const component = function() {
     },
     isDragging: false,
     file: null,
+    paying: false,
 
     async init() {
       const purse = new PrestoPurse({
         key: wallet.purse.privKey,
         description: 'Shfty Nft minter',
         onBefore: payment => {
-          payment.mount(embed(this.$refs.paypresto))
+          payment.mount(embed(this.$refs.paypresto, { style: ['rounded'] }))
         },
         onAfter: tx => {
           setTimeout(_ => {
@@ -68,6 +69,7 @@ const component = function() {
     fileIconClass,
 
     async submit() {
+      this.paying = true
       const payload = this.file ? this.dataPayload : this.textPayload;
       const cty     = this.file ? this.file.type : 'text/plain';
       const meta    = this.meta.name || this.meta.description ? this.meta : undefined;

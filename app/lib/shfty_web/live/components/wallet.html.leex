@@ -2,6 +2,11 @@
   x-data="App.Wallet()"
   x-init="init()">
 
+  <div class="flex items-center justify-center">
+    <span class="f7 lh-title black-70 mr2">Address:</span>
+    <span class="code f7 lh-title black-90" x-text="ownerAddress"></span>
+  </div>
+
   <div class="mv4 pa3 pa4-ns bg-black-10 br3">
     <h3 class="mt0 mb3 f4 fw7 lh-title">
       <i class="fas fa-wrench mr2"></i>
@@ -16,8 +21,6 @@
         to: Routes.wallet_path(@socket, :mint),
         class: "dib ph3 pv2 link f5 fw7 lh-copy white bg-animate bg-black-30 hover-bg-black-20 pointer bn br2" %>
   </div>
-
-  <p x-text="ownerAddress"></p>
 
   <template x-if="pending && !jigs.length">
     <div class="flex flex-column items-center justify-center h4">

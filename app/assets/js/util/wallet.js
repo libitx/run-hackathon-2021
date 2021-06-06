@@ -32,6 +32,10 @@ class Wallet {
     return new this(username, seed)
   }
 
+  static destroy() {
+    window.localStorage.removeItem(STORE_KEY)
+  }
+
   get identityAddress() {
     return Address.fromPubKey(this.identity.pubKey).toString()
   }

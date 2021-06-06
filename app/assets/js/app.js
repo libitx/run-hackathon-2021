@@ -24,6 +24,7 @@ import SignIn from './components/sign-in'
 import Wallet from './components/wallet'
 import Minter from './components/minter'
 import Token from './components/token'
+import Utility from './components/utility'
 
 window.App = {}
 const hooks = {}
@@ -39,6 +40,7 @@ component('SignIn', SignIn)
 component('Wallet', Wallet)
 component('Minter', Minter)
 component('Token', Token)
+component('Utility', Utility)
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
 let liveSocket = new LiveSocket("/live", Socket, {

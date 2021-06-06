@@ -12,6 +12,17 @@
   <% end %>
 </div>
 
+<div class="absolute top-0 right-0 pt3 pr3 pr4-ns"
+  x-data="App.Utility()">
+  <div class="flex items-center">
+    <span class="mr3 f6 lh-title"><%= @current_user.username %></span>
+    <a class="dib ph3 pv2 link f7 fw7 lh-copy white bg-animate bg-black-40 hover-bg-black-30 pointer bn br2"
+      @click.prevent="logout">
+      Log out
+    </a>
+  </div>
+</div>
+
 <%= case @live_action do %>
   <% :index -> %>
     <%= live_component(@socket, ShftyWeb.Components.Wallet) %>

@@ -67,7 +67,7 @@ const component = function() {
         wallet.save()
         window.liveSocket.historyRedirect(window.location.href, 'push')
       } catch(e) {
-        console.log(e)
+        alert('Authentication failed. Incorrect password for username.')
       }
     }
   }

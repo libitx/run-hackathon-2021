@@ -5,8 +5,12 @@ defmodule ShftyWeb.WalletLive do
   alias BSV.Extended
 
   @impl true
-  def mount(_params, _session, socket) do
-    {:ok, assign(socket, :page_title, "Wallet")}
+  def mount(_params, session, socket) do
+    socket = assign(socket, [
+      page_title: "Wallet",
+      current_user: session["current_user"]
+    ])
+    {:ok, socket}
   end
 
   @impl true
