@@ -1,8 +1,9 @@
 import { Envelope, Key } from 'univrse/dist/univrse.esm.js'
 import Run from 'run-sdk'
+import { embed } from 'paypresto.js'
 import Wallet from '../util/wallet'
 import PrestoPurse from '../util/presto-purse'
-import { embed } from 'paypresto.js'
+import { fileIconClass } from '../util/helpers'
 
 function bufToTypedArray(buf) {
   return new Uint8Array(buf.buffer, buf.byteOffset, buf.byteLength)
@@ -50,17 +51,17 @@ const component = function() {
         purse,
         trust: [
           '69a222fd82ca857a1892419ebc89ebac5e8acf88818659cf30982b3707540d70',
-          'dfccfd70db69b1894de7d6c2a45867cc0bcc27e83d13a4d7b06f79ebe60e37dc'
+          '7976807fa3f75dfc3c63cbc3d6a416b9e8935652bbb369708ecab3c4b0c27754'
         ]
       })
       run.activate()
-      NFT = await run.load('dfccfd70db69b1894de7d6c2a45867cc0bcc27e83d13a4d7b06f79ebe60e37dc_o1')
+      NFT = await run.load('7976807fa3f75dfc3c63cbc3d6a416b9e8935652bbb369708ecab3c4b0c27754_o1')
     },
 
     async drop(file) {
       console.log(file)
       this.isDragging = false
-      if (file.size > MAX_FILE_SIZE) return;
+      if (file.size > MAX_FILE_SIZE) return alert('File size too large.')
 
       this.file = file
       const data = await file.arrayBuffer()
@@ -72,14 +73,17 @@ const component = function() {
       return ( size / Math.pow(1024, i) ).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i]
     },
 
+    fileIconClass,
+
     async submit() {
       const payload = this.file ? this.dataPayload : this.textPayload;
       const cty     = this.file ? this.file.type : 'text/plain';
+      const meta    = this.meta.name || this.meta.description ? this.meta : undefined;
       const env     = Envelope.wrap(payload, { proto: 'shfty.nft', cty })
       await env.sign(wallet.identityKey, { alg: 'ES256K', kid: wallet.identityAddress })
       await env.encrypt(wallet.identityKey, { alg: 'ECDH-ES+A128GCM', kid: wallet.identityAddress })
 
-      //const token = new NFT(bufToTypedArray(env.toBuffer()))
+      const token = new NFT(bufToTypedArray(env.toBuffer()), meta)
       //run.transaction(_ => {
       //  
       //  token.metadata = this.meta

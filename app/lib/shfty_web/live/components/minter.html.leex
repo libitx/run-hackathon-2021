@@ -1,15 +1,10 @@
 <div class="mv4 pa3 pa4-ns bg-black-10 br3"
   x-data="App.Minter()"
   x-init="init()">
-  <div class="flex items-center justify-between mb3">
-    <h3 class="ma0 f4 fw7 lh-title">
-      <i class="fas fa-wrench mr2"></i>
-      Mint a token
-    </h3>
-    <%= live_redirect to: Routes.wallet_path(@socket, :index), class: "link f3 dark-red hover-hot-pink" do %>
-      <i class="far fa-times-circle"></i>
-    <% end %>
-  </div>
+  <h3 class="mt0 mb3 f4 fw7 lh-title">
+    <i class="fas fa-wrench mr2"></i>
+    Mint a token
+  </h3>
 
   <p class="mv3 f6 lh-copy">
     To mint a token, type your secret into the box below
@@ -39,12 +34,12 @@
           x-show="isDragging || file">
           <div class="flex flex-column items-center justify-center h-100">
             <template x-if="isDragging">
-              <i class="fas fa-file-upload fa-4x hot-silver"></i>
+              <i class="fas fa-file-upload fa-4x black-30"></i>
             </template>
 
             <template x-if="!isDragging && file">
               <div class="flex items-center w-100 ph5">
-                <div><i class="far fa-file fa-4x hot-silver"></i></div>
+                <div><i class="fas fa-4x black-30" :class="fileIconClass(file.type)"></i></div>
                 <div class="flex-auto pl3">
                   <h5 class="ma0 f5 lh-copy fw7" x-text="file.name"></h5>
                   <div class="flex items-center justify-between f6 lh-copy mid-gray">
@@ -81,7 +76,7 @@
       </div>
     </div>
 
-    <button class="button-reset dib ph3 pv2 f5 fw7 lh-copy white bg-animate bg-green hover-bg-hot-pink pointer bn br2">
+    <button class="button-reset dib ph3 pv2 f5 fw7 lh-copy white bg-animate bg-black-30 hover-bg-black-20 pointer bn br2">
       Mint it!
     </button>
   </form>

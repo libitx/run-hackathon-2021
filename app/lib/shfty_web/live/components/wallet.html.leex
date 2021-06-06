@@ -1,0 +1,44 @@
+<div pxh-hook="Wallet"
+  x-data="App.Wallet()"
+  x-init="init()">
+
+  <div class="mv4 pa3 pa4-ns bg-black-10 br3">
+    <h3 class="mt0 mb3 f4 fw7 lh-title">
+      <i class="fas fa-wrench mr2"></i>
+      Mint a token
+    </h3>
+    <p class="mv3 f6 lh-copy" x-show="!pending && !tokens.length">
+      Step this way and create your very first <strong class="fw7">Shfty Nft</strong> token.
+    </p>
+
+    <%= live_redirect "Create Shfty Nft",
+        to: Routes.wallet_path(@socket, :mint),
+        class: "dib ph3 pv2 link f5 fw7 lh-copy white bg-animate bg-black-30 hover-bg-black-20 pointer bn br2" %>
+  </div>
+
+  <!--<p x-text="ownerAddress"></p>-->
+
+  <div class="ma0 pa0 grid-wrap" x-show="tokens.length">
+    <template x-for="(jig, index) in tokens" :key="index">
+      <a :href="'/wallet/t/'+ jig.location"
+        class="db grow no-underline pointer"
+        @click.prevent="liveSocket.redirect('/wallet/t/'+ jig.location)">
+        <article class="bg-black-10 br3 overflow-hidden">
+          <header class="flex items-center pa3 bg-black-30 br--top">
+            <i class="fas fa-mask fa-lg white-60"></i>
+            <div class="pl3">
+              <h5 class="ma0 f6 fw7 lh-title white" x-text="jigName(jig)"></h5>
+              <div class="f6 lh-title white-80" x-text="jigDesc(jig)"></div>
+            </div>
+          </header>
+          <div class="flex flex-column items-center justify-center h4">
+            <template x-if="jig.env.header.cty">
+              <i class="fas fa-3x black-30" :class="fileIconClass(jig.env.header.cty)"></i>
+              <span class="mt3 f7 code black-50" x-text="jig.env.header.cty"></span>
+            </template>
+          </div>
+        </article>
+      </a>
+    </template>
+  </ul>
+</div>
