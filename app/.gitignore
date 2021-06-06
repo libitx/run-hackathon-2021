@@ -35,3 +35,8 @@ npm-debug.log
 
 # Ingore sqlite db
 /priv/sqlite/
+
+# Ingore deploy scripts and artifacts
+/bin/build
+/bin/deploy
+/rel/artifacts

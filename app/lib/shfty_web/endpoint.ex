@@ -1,6 +1,25 @@
 defmodule ShftyWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :shfty
 
+  @doc """
+  Callback invoked for dynamically configuring the endpoint.
+
+  It receives the endpoint configuration and checks if
+  configuration should be loaded from the system environment.
+  """
+  def init(_key, config) do
+    if config[:load_from_system_env] do
+      host = Application.get_env(:shfty, :app_host) || raise "expected the APP_HOST environment variable to be set"
+      port = Application.get_env(:shfty, :app_port) || raise "expected the APP_PORT environment variable to be set"
+      port = String.to_integer(port)
+      scheme = if port == 443, do: "https", else: "http"
+
+      {:ok, Keyword.put(config, :url, [scheme: scheme, host: host, port: port])}
+    else
+      {:ok, config}
+    end
+  end
+
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
   # Set :encryption_salt if you would also like to encrypt it.
