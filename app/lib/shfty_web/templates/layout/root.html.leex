@@ -18,27 +18,29 @@
       src="<%= Routes.static_path(@conn, "/js/app.js") %>"
       defer
       phx-track-static></script>
+
+    <!-- Urg. We load bsv twice 😖 -->
     <script src="<%= Routes.static_path(@conn, "/js/bsv.browser.min.js") %>"></script>
     <script src="<%= Routes.static_path(@conn, "/js/run.browser.min.js") %>"></script>
 
     <!-- Primary Meta Tags -->
     <meta name="title" content="Shfty Nfts - Tokenise your secrets">
     <meta name="description" content="Tokenise your secrets and send them or sell them securely where only the holder of the token can access the data within. A RUN Hackathon 2021 app.">
-    <link rel="icon"  type="image/png" href="<%= Routes.static_path(@conn, "/images/favicon.png") %>">
+    <link rel="icon"  type="image/png" href="<%= Routes.static_url(@conn, "/images/favicon.png") %>">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://shfty.chronoslabs.net">
     <meta property="og:title" content="Shfty Nfts - Tokenise your secrets">
     <meta property="og:description" content="Tokenise your secrets and send them or sell them securely where only the holder of the token can access the data within. A RUN Hackathon 2021 app.">
-    <meta property="og:image" content="<%= Routes.static_path(@conn, "/images/poster.png") %>">
+    <meta property="og:image" content="<%= Routes.static_url(@conn, "/images/poster.png") %>">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://shfty.chronoslabs.net">
     <meta property="twitter:title" content="Shfty Nfts - Tokenise your secrets">
     <meta property="twitter:description" content="Tokenise your secrets and send them or sell them securely where only the holder of the token can access the data within. A RUN Hackathon 2021 app.">
-    <meta property="twitter:image" content="<%= Routes.static_path(@conn, "/images/poster.png") %>">
+    <meta property="twitter:image" content="<%= Routes.static_url(@conn, "/images/poster.png") %>">
   </head>
   <body class="ph3 sans-serif near-black bg-washed-yellow">
     <div class="mw6 center">
