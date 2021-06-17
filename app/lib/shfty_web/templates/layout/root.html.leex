@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <%= csrf_meta_tag() %>
-    <%= live_title_tag assigns[:page_title] || "Tokenise your secrets", suffix: " · Shfty Nfts" %>
+    <%= live_title_tag assigns[:page_title] || "Create private NFTs", suffix: " · Shfty Nfts" %>
     <link rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/tachyons/4.11.1/tachyons.min.css"
       integrity="sha512-d0v474klOFSF7qD9WDvyRxAvXaWSxCHDZdnBSZQjo8BpVr6vpjwAgqetpqkKP38DzlOzdVPaLVnzzW1Ba8wB9w=="
@@ -24,22 +24,22 @@
     <script src="<%= Routes.static_path(@conn, "/js/run.browser.min.js") %>"></script>
 
     <!-- Primary Meta Tags -->
-    <meta name="title" content="Shfty Nfts - Tokenise your secrets">
-    <meta name="description" content="Tokenise your secrets and send them or sell them securely where only the holder of the token can access the data within. A RUN Hackathon 2021 app.">
+    <meta name="title" content="Create private NFTs · Shfty Nfts">
+    <meta name="description" content="Create private NFTs where only the token holder can see what's inside. Turn any text or file into a secure, private token you can save, send, or sell. A RUN Hackathon 2021 app.">
     <link rel="icon"  type="image/png" href="<%= Routes.static_url(@conn, "/images/favicon.png") %>">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://shfty.chronoslabs.net">
-    <meta property="og:title" content="Shfty Nfts - Tokenise your secrets">
-    <meta property="og:description" content="Tokenise your secrets and send them or sell them securely where only the holder of the token can access the data within. A RUN Hackathon 2021 app.">
+    <meta property="og:title" content="Create private NFTs · Shfty Nfts">
+    <meta property="og:description" content="Create private NFTs where only the token holder can see what's inside. Turn any text or file into a secure, private token you can save, send, or sell. A RUN Hackathon 2021 app.">
     <meta property="og:image" content="<%= Routes.static_url(@conn, "/images/poster.png") %>">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://shfty.chronoslabs.net">
-    <meta property="twitter:title" content="Shfty Nfts - Tokenise your secrets">
-    <meta property="twitter:description" content="Tokenise your secrets and send them or sell them securely where only the holder of the token can access the data within. A RUN Hackathon 2021 app.">
+    <meta property="twitter:title" content="Create private NFTs · Shfty Nfts">
+    <meta property="twitter:description" content="Create private NFTs where only the token holder can see what's inside. Turn any text or file into a secure, private token you can save, send, or sell. A RUN Hackathon 2021 app.">
     <meta property="twitter:image" content="<%= Routes.static_url(@conn, "/images/poster.png") %>">
   </head>
   <body class="ph3 sans-serif near-black bg-washed-yellow">
@@ -55,8 +55,8 @@
 
       <footer class="mt6 pv3 bt b--black-40">
         <p class="f7 lh-copy black-70">
-          Created for fun by <a href="https://twitter.com/libitx" target="_blank" class="link fw7 purple hover-hot-pink">Libs</a>
-          as part of the <strong class="fw7">RUN Hackathon 2021</strong>.
+          <strong>Shft Nfts</strong> is a <strong class="fw7">RUN Hackathon 2021</strong>
+          submission, created by <a href="https://twitter.com/libitx" target="_blank" class="link fw7 purple hover-hot-pink">Libs</a>.
         </p>
       </footer>
     </div>
