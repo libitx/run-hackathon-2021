@@ -20,6 +20,7 @@ const component = function() {
     isDragging: false,
     file: null,
     paying: false,
+    runError: false,
 
     async init() {
       const purse = new PrestoPurse({
@@ -46,7 +47,13 @@ const component = function() {
         ]
       })
       run.activate()
-      NFT = await run.load('48df6857b6fc86d112e558302575a46f88cfff37f58fb9ddc1f5f514a065db1c_o1')
+      
+      try {
+        NFT = await run.load('48df6857b6fc86d112e558302575a46f88cfff37f58fb9ddc1f5f514a065db1c_o1')
+      } catch (e) {
+        console.error(e)
+        this.runError = true
+      }
     },
 
     async drop(file) {

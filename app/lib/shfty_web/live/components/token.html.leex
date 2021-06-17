@@ -3,6 +3,20 @@
   phx-target="#<%= @id %>"
   x-data="App.Token()"
   x-init="init('<%= @location %>')">
+
+  <template x-if="runError">
+    <div class="mv4 pa3 bg-black-10 ba bw1 b--dark-red br3">
+      <div class="flex">
+        <i class="fas fa-exclamation-triangle mt1 mr3 dark-red"></i>
+        <p class="ma0 f6 lh-copy">
+          <strong class="fw7">Shfty Nfts</strong> is an experimental app that depends
+          on RUN's public developer APIs. These aren't designed for production
+          use and sometimes, like now, things don't quite work. Please try again later.
+        </p>
+      </div>
+    </div>
+  </template>
+
   <template x-if="!jig">
     <div class="flex flex-column items-center justify-center h4">
       <i class="fas fa-circle-notch black-40 fa-4x fa-spin"></i>

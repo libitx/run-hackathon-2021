@@ -8,6 +8,7 @@ const component = function() {
   return {
     ownerAddress: wallet.ownerAddress,
     pending: true,
+    runError: false,
     jigs: [],
 
     jigName(jig) {
@@ -20,7 +21,7 @@ const component = function() {
 
     fileIconClass,
 
-    async init() {
+    init() {
       run = new Run({
         network: 'main',
         owner: wallet.owner.privKey.toWif(),
@@ -31,15 +32,23 @@ const component = function() {
         ]
       })
       run.activate()
-
-      const utxos = await run.blockchain.utxos(wallet.ownerScript.toHex())
-      for (let i = 0; i < utxos.length; i++) {
-        const location = `${ utxos[i].txid }_o${ utxos[i].vout }`
-        const jig = await run.load(location)
-        this.jigs.push(jig)
-      }
-      this.pending = false
+      this.loadUTXOs()
     },
+
+    async loadUTXOs() {
+      try {
+        const utxos = await run.blockchain.utxos(wallet.ownerScript.toHex())
+        for (let i = 0; i < utxos.length; i++) {
+          const location = `${ utxos[i].txid }_o${ utxos[i].vout }`
+          const jig = await run.load(location)
+          this.jigs.push(jig)
+        }
+        this.pending = false
+      } catch (e) {
+        console.error(e)
+        this.runError = true
+      }
+    }
   }
 }
 

@@ -18,6 +18,7 @@ const component = function() {
     sending: false,
     searched: false,
     paying: false,
+    runError: false,
 
     user: {
       username: '',
@@ -58,7 +59,7 @@ const component = function() {
       }
     },
 
-    async init(location) {
+    init(location) {
       const purse = new PrestoPurse({
         key: wallet.purse.privKey,
         description: 'Shfty Nft minter',
@@ -83,9 +84,17 @@ const component = function() {
         ]
       })
       run.activate()
+      this.loadToken(location)
+    },
 
-      this.jig = await run.load(location)
-      this.pending = false
+    async loadToken(location) {
+      try {
+        this.jig = await run.load(location)
+        this.pending = false
+      } catch (e) {
+        console.error(e)
+        this.runError = true
+      }
     },
 
     async decrypt() {
